@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AsanPay - پرداخت آسان</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+body{background:#f5f7fb;color:#1a1a2e;min-height:100vh}
+.header{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;padding:22px 20px 90px;border-radius:0 0 30px 30px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:700;font-size:22px;display:flex;gap:8px;align-items:center}
+.card{background:#fff;margin:-65px 18px 0;border-radius:22px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.12);position:relative;z-index:2}
+.bal-label{color:#888;font-size:13px}
+.bal{font-size:32px;font-weight:700;margin:6px 0;color:#1a1a2e}
+.bal span{font-size:18px;color:#666}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.act{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.act-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.c1{background:#e8f0ff;color:#2b6cff}
+.c2{background:#fff2e5;color:#ff8c32}
+.c3{background:#e6ffef;color:#00b050}
+.c4{background:#f3e8ff;color:#8a3cff}
+.act span{font-size:11px;font-weight:600}
+.menu{padding:20px 18px}
+.menu-title{font-weight:700;margin-bottom:12px;font-size:15px}
+.list{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.06)}
+.item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #f1f1f1;cursor:pointer}
+.item:last-child{border:0}
+.item-left{display:flex;align-items:center;gap:12px}
+.item-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#f5f7fb}
+.btn{width:100%;background:linear-gradient(135deg,#302b63,#24243e);color:#fff;border:0;padding:16px;border-radius:16px;font-weight:700;font-size:15px;margin-top:18px;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10;align-items:end}
+.modal.show{display:flex}
+.modal-box{background:#fff;width:100%;border-radius:26px 26px 0 0;padding:24px;animation:up .3s}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.inp{width:100%;padding:14px;border:1.5px solid #e5e7eb;border-radius:12px;margin:10px 0;font-size:15px;outline:none}
+.inp:focus{border-color:#302b63}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="top">
+    <div class="logo">💳 AsanPay</div>
+    <div style="background:rgba(255,255,255,.2);padding:6px 12px;border-radius:20px;font-size:12px">🇦🇫 حجت الله شریفی</div>
+  </div>
+  <div style="margin-top:18px;opacity:.9;font-size:13px">سلام، حجت جان 👋</div>
+</div>
+
+<div class="card">
+  <div class="bal-label">موجودی کل شما</div>
+  <div class="bal" id="balance">12,450 <span>AFN</span></div>
+  <div style="font-size:11px;color:#00b050;background:#e6ffef;display:inline-block;padding:3px 8px;border-radius:10px">● فعال است</div>
+  <div class="actions">
+    <div class="act" onclick="openModal('send')"><div class="act-icon c1">↗️</div><span>ارسال</span></div>
+    <div class="act" onclick="openModal('topup')"><div class="act-icon c2">📱</div><span>کردیت</span></div>
+    <div class="act" onclick="openModal('bills')"><div class="act-icon c3">💡</div><span>قبوض</span></div>
+    <div class="act" onclick="openModal('history')"><div class="act-icon c4">📊</div><span>تاریخچه</span></div>
+  </div>
+</div>
+
+<div class="menu">
+  <div class="menu-title">خدمات آسان پی</div>
+  <div class="list">
+    <div class="item" onclick="openModal('send')"><div class="item-left"><div class="item-icon">💸</div><div><div style="font-weight:600;font-size:14px">انتقال پول</div><div style="font-size:11px;color:#888">به هر شماره در ثانیه</div></div></div><div>›</div></div>
+    <div class="item" onclick="openModal('topup')"><div class="item-left"><div class="item-icon">📞</div><div><div style="font-weight:600;font-size:14px">بسته های انترنت</div><div style="font-size:11px;color:#888">روشن، اتصالات، MTN</div></div></div><div>›</div></div>
+    <div class="item" onclick="openModal('bills')"><div class="item-left"><div class="item-icon">⚡</div><div><div style="font-weight:600;font-size:14px">پرداخت برق</div><div style="font-size:11px;color:#888">برشنا - کابل و ولایات</div></div></div><div>›</div></div>
+  </div>
+  <button class="btn" onclick="openModal('send')">+ ارسال پول جدید</button>
+  <div style="text-align:center;margin-top:16px;font-size:11px;color:#999">AsanPay v1.0 • ساخته شده با ❤️ برای افغانستان</div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target==this)closeModal()">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b id="m-title">ارسال پول</b><span onclick="closeModal()" style="cursor:pointer">✕</span></div>
+    <div id="m-body"></div>
+  </div>
+</div>
+
+<script>
+let bal=12450;
+function openModal(t){
+  const m=document.getElementById('modal'),title=document.getElementById('m-title'),body=document.getElementById('m-body');
+  m.classList.add('show');
+  if(t=='send'){title.innerText='ارسال پول';body.innerHTML=`<input class='inp' id='num' placeholder='شماره گیرنده: 07XX XXX XXX'><input class='inp' id='amt' type='number' placeholder='مبلغ: مثلا 500'><button class='btn' onclick='doSend()'>تایید و ارسال</button>`}
+  else if(t=='topup'){title.innerText='خرید کردیت';body.innerHTML=`<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0'><div onclick="document.getElementById('amt').value=50" style='border:1.5px solid #eee;padding:12px;border-radius:12px;text-align:center;cursor:pointer'>50 AFN</div><div onclick="document.getElementById('amt').value=100" style='border:1.5px solid #302b63;padding:12px;border-radius:12px;text-align:center;background:#f0f0ff;cursor:pointer'>100 AFN</div><div onclick="document.getElementById('amt').value=200" style='border:1.5px solid #eee;padding:12px;border-radius:12px;text-align:center;cursor:pointer'>200 AFN</div></div><input class='inp' id='num' placeholder='شماره موبایل'><input class='inp' id='amt' placeholder='مبلغ'><button class='btn' onclick='doSend()'>خرید</button>`}
+  else if(t=='bills'){title.innerText='پرداخت قبض';body.innerHTML=`<input class='inp' placeholder='آی دی مشتری برق'><input class='inp' id='amt' type='number' placeholder='مبلغ قبض'><button class='btn' onclick='doSend()'>پرداخت</button>`}
+  else{title.innerText='تاریخچه';body.innerHTML=`<div style='font-size:13px;line-height:2'><div style='display:flex;justify-content:space-between'><span>↗️ ارسال به 077XXXXXX</span><b>-500 AFN</b></div><div style='display:flex;justify-content:space-between'><span>📱 کردیت اتصالات</span><b>-100 AFN</b></div><div style='display:flex;justify-content:space-between'><span>↙️ دریافت از 070XXXXXX</span><b style='color:#00b050'>+2000 AFN</b></div></div>`}
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function doSend(){
+  const amt=parseInt(document.getElementById('amt')?.value||0);
+  if(!amt||amt<=0)return alert('مبلغ را وارد کنید!');
+  if(amt>bal)return alert('موجودی کافی نیست!');
+  bal-=amt;
+  document.getElementById('balance').innerHTML=bal.toLocaleString()+' <span>AFN</span>';
+  closeModal();
+  alert('✅ موفقانه انجام شد! '+amt+' افغانی ارسال شد.');
+}
+</script>
+</body>
+</html>
