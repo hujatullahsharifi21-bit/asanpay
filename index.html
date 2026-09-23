@@ -1,24 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AsanPay</title>
+<title>AsanPay - آسان پرداخت</title>
 <link rel="apple-touch-icon" href="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg">
 <link rel="icon" href="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00A651">
 <style>
-body{margin:0;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif}
-.card{background:white;padding:40px;border-radius:20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-.logo{width:120px;height:120px;border-radius:25px}
-h1{color:#00A651}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma,sans-serif}
+body{background:#f4f6f4}
+.header{background:linear-gradient(135deg,#00A651,#006633);color:white;padding:20px 20px 35px;border-radius:0 0 28px 28px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{width:50px;height:50px;border-radius:14px;background:white;padding:3px}
+.card{margin:-25px 16px 16px;background:white;border-radius:20px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+.tabs{display:flex;gap:8px;margin:0 16px 16px}
+.tab{flex:1;background:white;padding:12px;border-radius:12px;text-align:center;border:2px solid #eee;cursor:pointer}
+.tab.active{background:#00A651;color:white;border-color:#00A651}
+.input{width:100%;padding:14px;border:2px solid #e8e8e8;border-radius:12px;margin:8px 0;font-size:16px;text-align:center}
+.btn{width:100%;background:#00A651;color:white;border:none;padding:15px;border-radius:12px;font-size:17px;font-weight:bold;margin-top:10px;cursor:pointer}
+.btn2{background:#fff;color:#00A651;border:2px solid #00A651}
+.box{background:white;margin:12px 16px;border-radius:16px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.copy{background:#f0f0f0;padding:10px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+small{color:#666}
+.success{background:#e8f5e9;border:2px solid #00A651;color:#006633;padding:15px;border-radius:12px;text-align:center;margin:10px 0;display:none}
 </style>
 </head>
 <body>
-<div class="card">
-<img src="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg" class="logo">
-<h1>آسان پرداخت</h1>
-<p>نصب شد!</p>
+
+<div class="header">
+<div class="top">
+<div>
+<h2>آسان پرداخت</h2>
+<small>پرداخت آسان، سریع، امن</small>
 </div>
+<img src="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg" class="logo">
+</div>
+</div>
+
+<div class="card" style="text-align:center">
+<div style="font-size:28px;font-weight:bold;color:#00A651" id="total">0 AFN</div>
+<small>مجموع تراکنش های امروز</small>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="openTab('send',this)">💸 ارسال پول</div>
+<div class="tab" onclick="openTab('my',this)">👤 مشتری</div>
+<div class="tab" onclick="openTab('owner',this)">⚙️ مدیریت</div>
+</div>
+
+<!-- ارسال پول -->
+<div id="send" class="box">
+<h3>💸 مشتری پول بفرستد</h3>
+<p style="margin:8px 0"><small>مشتری این فرم را پر میکند - پول به شما میرسد</small></p>
+<input id="cName" class="input" placeholder="نام مشتری">
+<input id="cPhone" class="input" type="tel" placeholder="شماره موبایل مشتری 07XX">
+<input id="cAmount" class="input" type="number" placeholder="مبلغ افغانی - مثلا 1000">
+<select id="cMethod" class="input">
+<option>کارت به کارت</option>
+<option>حواله بانکی</option>
+<option>پرداخت نقدی</option>
+</select>
+<input id="cNote" class="input" placeholder="بابت چی؟ مثلا خرید">
+<button class="btn" onclick="sendMoney()">ارسال و ثبت ✅</button>
+
+<div id="ok" class="success">
+✅ ثبت شد!<br>
+<span id="okText"></span>
+</div>
+
+<div style="margin-top:15px">
+<h4>💳 اطلاعات پرداخت شما:</h4>
+<div class="copy"><span>کارت: <b id="cardNum">6037-XXXX-XXXX-1234</b></span><button onclick="copyText('6037991122331234')">کپی</button></div>
+<div class="copy"><span>حساب: <b>IR12-XXXX-XXXX</b></span><button onclick="copyText('IR120000')">کپی</button></div>
+<button class="btn btn2" onclick="openWA()">📱 واتساپ مستقیم - کلیک کن</button>
+<a id="waLink" href="https://wa.me/905000000000?text=سلام آسان پرداخت" style="text-decoration:none"><button class="btn btn2">💬 ارسال رسید در واتساپ</button></a>
+</div>
+</div>
+
+<!-- مشتری -->
+<div id="my" class="box" style="display:none">
+<h3>📋 تراکنش های من</h3>
+<div id="list">هنوز تراکنشی نیست</div>
+<button class="btn btn2" onclick="clearAll()">پاک کردن تاریخچه</button>
+</div>
+
+<!-- مدیریت -->
+<div id="owner" class="box" style="display:none">
+<h3>⚙️ پنل مدیریت شما</h3>
+<small>اینجا فقط خودت میبینی</small>
+<input id="ownerCard" class="input" placeholder="شماره کارت خودت را بنویس">
+<input id="ownerWA" class="input" placeholder="شماره واتساپ خودت: 905...">
+<button class="btn" onclick="saveOwner()">ذخیره تنظیمات ✅</button>
+<div style="margin-top:15px;background:#f9f9f9;padding:12px;border-radius:10px">
+<b>آمار امروز:</b><br>
+تعداد تراکنش: <span id="count">0</span><br>
+مجموع: <span id="sum">0</span> AFN
+</div>
+</div>
+
+<script>
+// === تنظیمات خودت را اینجا عوض کن ===
+let MY_CARD = "6037991122331234";
+let MY_WA = "905000000000"; // شماره واتساپ خودت بدون +
+
+let tx = JSON.parse(localStorage.getItem('asan_tx')||'[]');
+updateUI();
+
+function openTab(id,el){
+ document.getElementById('send').style.display=id=='send'?'block':'none';
+ document.getElementById('my').style.display=id=='my'?'block':'none';
+ document.getElementById('owner').style.display=id=='owner'?'block':'none';
+ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ el.classList.add('active');
+}
+
+function sendMoney(){
+ let n=document.getElementById('cName').value;
+ let p=document.getElementById('cPhone').value;
+ let a=document.getElementById('cAmount').value;
+ let m=document.getElementById('cMethod').value;
+ let note=document.getElementById('cNote').value;
+ if(!n||!p||!a){alert('لطفا نام، شماره و مبلغ را بنویس');return}
+ let obj={name:n,phone:p,amount:+a,method:m,note:note,time:new Date().toLocaleString('fa-AF')};
+ tx.unshift(obj);
+ localStorage.setItem('asan_tx',JSON.stringify(tx));
+ document.getElementById('ok').style.display='block';
+ document.getElementById('okText').innerText= a + ' AFN از ' + n + ' ثبت شد';
+ updateUI();
+ document.getElementById('cName').value='';document.getElementById('cPhone').value='';document.getElementById('cAmount').value='';
+ setTimeout(()=>{openWAWithText(`سلام، من ${n} مبلغ ${a} AFN بابت ${note} فرستادم. شماره: ${p}`)},800);
+}
+
+function updateUI(){
+ let sum=tx.reduce((s,x)=>s+x.amount,0);
+ document.getElementById('total').innerText=sum+' AFN';
+ document.getElementById('count').innerText=tx.length;
+ document.getElementById('sum').innerText=sum;
+ let html=tx.map(t=>`<div style="border-bottom:1px solid #eee;padding:10px 0"><b>${t.name}</b> - ${t.amount} AFN<br><small>${t.phone} | ${t.method} | ${t.time}</small></div>`).join('');
+ document.getElementById('list').innerHTML=html||'هنوز تراکنشی نیست';
+}
+
+function copyText(t){navigator.clipboard.writeText(t);alert('کپی شد: '+t)}
+function openWA(){window.open('https://wa.me/'+MY_WA,'_blank')}
+function openWAWithText(txt){window.open('https://wa.me/'+MY_WA+'?text='+encodeURIComponent(txt),'_blank')}
+function saveOwner(){
+ MY_CARD=document.getElementById('ownerCard').value||MY_CARD;
+ MY_WA=document.getElementById('ownerWA').value||MY_WA;
+ document.getElementById('cardNum').innerText=MY_CARD;
+ document.getElementById('waLink').href='https://wa.me/'+MY_WA;
+ alert('تنظیمات ذخیره شد! کارت: '+MY_CARD+' واتساپ: '+MY_WA);
+}
+function clearAll(){if(confirm('پاک شود؟')){tx=[];localStorage.removeItem('asan_tx');updateUI()}}
+</script>
 </body>
 </html>
