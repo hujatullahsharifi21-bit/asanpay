@@ -3,246 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AsanPay - صراف بزرگ - همه چیز</title>
+<title>AsanPay - امن</title>
 <link rel="apple-touch-icon" href="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg">
 <link rel="icon" href="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg">
-<meta name="theme-color" content="#00A651">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma}
 body{background:#0f0f0f;color:#fff}
-.lock{position:fixed;inset:0;background:#000;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
-.lock-box{background:#151515;border:2px solid #00A651;border-radius:20px;padding:22px;width:100%;max-width:360px;text-align:center}
-.header{background:linear-gradient(135deg,#00A651,#003d1f);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.header{background:linear-gradient(135deg,#00A651,#002a14);padding:12px;display:flex;justify-content:space-between;align-items:center}
 .logo{width:42px;height:42px;border-radius:10px;background:#fff;padding:2px}
-.live{width:9px;height:9px;background:#00ff00;border-radius:50%;display:inline-block;animation:b 1s infinite}
-@keyframes b{0%,100%{opacity:1}50%{opacity:0}}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:-18px 10px 10px}
-.s{background:#1e1e1e;border-radius:14px;padding:10px;text-align:center;border:1px solid #2a2a2a}
-.s b{color:#00ff88}
-.tabs{display:flex;gap:5px;margin:8px 10px;overflow-x:auto;padding-bottom:4px}
-.tab{background:#1e1e1e;padding:9px 12px;border-radius:20px;white-space:nowrap;border:1px solid #2a2a2a;font-size:11px;cursor:pointer}
-.tab.active{background:#00A651;border-color:#00A651}
+.board{background:#161616;margin:10px;border-radius:14px;overflow:hidden;border:2px solid #00A651}
+.board-head{background:#00A651;padding:10px;text-align:center;font-weight:bold;display:flex;justify-content:space-between}
+table{width:100%;border-collapse:collapse}th{background:#222;padding:8px;font-size:12px;color:#00ff88}td{padding:10px 4px;text-align:center;border-bottom:1px solid #222}
+.input{width:100%;padding:11px;background:#222;border:1px solid #333;border-radius:10px;color:#fff;margin:5px 0;text-align:center}
+.btn{width:100%;background:#00A651;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:bold;margin-top:6px}
+.btn2{background:#1e1e1e;color:#fff;border:1px solid #333}
 .box{background:#181818;margin:8px 10px;border-radius:14px;padding:12px;border:1px solid #252525}
-.input{width:100%;padding:11px;background:#222;border:1px solid #333;border-radius:10px;color:#fff;margin:5px 0;text-align:center;font-size:14px}
-.btn{width:100%;background:#00A651;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:bold;margin-top:6px;cursor:pointer}
-.btn2{background:#222;color:#00A651;border:1px solid #00A651}
-.btnGold{background:linear-gradient(135deg,#FFD700,#FF8F00);color:#000}
-table{width:100%;border-collapse:collapse}
-th{background:#222;padding:7px;font-size:11px;color:#00ff88}
-td{padding:8px 4px;text-align:center;border-bottom:1px solid #222;font-size:13px}
-.edit{width:62px;background:#222;border:1px solid #333;color:#fff;border-radius:6px;padding:5px;text-align:center}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.item{padding:8px 0;border-bottom:1px solid #222;display:flex;justify-content:space-between;font-size:13px}
+.tabs{display:flex;gap:5px;margin:8px 10px;overflow-x:auto}
+.tab{background:#1e1e1e;padding:9px 12px;border-radius:20px;white-space:nowrap;border:1px solid #2a2a2a;font-size:12px}
+.tab.active{background:#00A651}
+.edit{width:60px;background:#222;border:1px solid #333;color:#fff;border-radius:6px;padding:5px;text-align:center}
+.hidden{display:none}
+.owner-btn{position:fixed;bottom:10px;left:10px;right:10px;background:#000;border:2px solid #FFD700;border-radius:12px;padding:10px;text-align:center;z-index:10}
 </style>
 </head>
 <body>
-
-<div id="lock" class="lock">
-<div class="lock-box">
-<img src="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg" style="width:68px;border-radius:14px">
-<h3 style="margin:8px 0">AsanPay - صراف بزرگ</h3>
-<p style="color:#00ff88"><span class="live"></span> تحت کنترل حجت الله شریفی</p>
-<small style="color:#aaa">تمام چیز در این برنامه است</small>
-<input id="pass" type="password" class="input" placeholder="رمز: 1234" style="margin-top:12px">
-<button class="btn" onclick="unlock()">ورود مالک 🔓</button>
-<small style="color:#666;display:block;margin-top:8px">رمز پیشفرض 1234</small>
-</div>
-</div>
-
 <div class="header">
-<div><h4>AsanPay - ALL IN ONE</h4><small id="date"></small></div>
+<div><h4>AsanPay - صرافی</h4><small>حواله ترکیه → افغانستان</small></div>
 <img src="2294c4b5-70d1-a411-4c73-65492088abcc.jpeg" class="logo">
 </div>
 
-<div class="stats">
-<div class="s"><small>مجموع حواله</small><br><b id="stTotal">0 AFN</b></div>
-<div class="s"><small>سود (کارمزد)</small><br><b id="stProfit" style="color:#FFD700">0</b></div>
-<div class="s"><small>طلب خالص</small><br><b id="stTalab" style="color:#ff6b6b">0</b></div>
-</div>
-<div class="stats" style="margin-top:0">
-<div class="s"><small>مشتری</small><br><b id="stCount">0</b></div>
-<div class="s"><small>حواله امروز</small><br><b id="stToday">0</b></div>
-<div class="s"><small>وضعیت</small><br><b style="color:#00ff88"><span class="live"></span> فعال</b></div>
-</div>
-
-<div class="tabs">
-<div class="tab active" onclick="show('board',this)">💱 لست نرخ</div>
-<div class="tab" onclick="show('hawala',this)">🌍 حواله ترکیه→افغان</div>
-<div class="tab" onclick="show('internet',this)">🌐 انترنت/خدمات</div>
-<div class="tab" onclick="show('debt',this)">📒 طلب/بدهی</div>
-<div class="tab" onclick="show('all',this)">📋 مجموعه پول</div>
-<div class="tab" onclick="show('owner',this)">🔐 مالک</div>
-</div>
-
-<div id="board" class="box">
-<div style="display:flex;justify-content:space-between"><h4>💱 لست نرخ - تو کنترل میکنی</h4><small id="time"></small></div>
+<div class="board">
+<div class="board-head"><span>💱 لست نرخ امروز - برای همه مشتری ها</span><span id="time" style="font-size:11px"></span></div>
 <table>
-<tr><th>ارز</th><th>خرید</th><th>فروش</th><th>سود</th></tr>
-<tr><td>🇺🇸 USD</td><td><input id="usd_b" class="edit" value="78.20"></td><td><input id="usd_s" class="edit" value="78.80"></td><td style="color:#FFD700">0.6</td></tr>
-<tr><td>🇹🇷 TRY</td><td><input id="try_b" class="edit" value="2.10"></td><td><input id="try_s" class="edit" value="2.30"></td><td style="color:#FFD700">0.20</td></tr>
-<tr><td>🇪🇺 EUR</td><td><input id="eur_b" class="edit" value="84.50"></td><td><input id="eur_s" class="edit" value="86.00"></td><td style="color:#FFD700">1.5</td></tr>
-<tr><td>🇦🇪 AED</td><td><input id="aed_b" class="edit" value="21.30"></td><td><input id="aed_s" class="edit" value="21.80"></td><td style="color:#FFD700">0.5</td></tr>
-<tr><td>🇸🇦 SAR</td><td><input id="sar_b" class="edit" value="20.80"></td><td><input id="sar_s" class="edit" value="21.20"></td><td style="color:#FFD700">0.4</td></tr>
-<tr><td>🇬🇧 GBP</td><td><input id="gbp_b" class="edit" value="98.0"></td><td><input id="gbp_s" class="edit" value="100.0"></td><td style="color:#FFD700">2.0</td></tr>
+<tr><th>ارز</th><th>خرید</th><th>فروش</th></tr>
+<tr><td>🇺🇸 USD</td><td id="usd_b_show">78.20</td><td id="usd_s_show">78.80</td></tr>
+<tr><td>🇹🇷 TRY</td><td id="try_b_show">2.10</td><td id="try_s_show">2.30</td></tr>
+<tr><td>🇪🇺 EUR</td><td id="eur_b_show">84.50</td><td id="eur_s_show">86.00</td></tr>
+<tr><td>🇦🇪 AED</td><td id="aed_b_show">21.30</td><td id="aed_s_show">21.80</td></tr>
 </table>
-<button class="btn btnGold" onclick="saveRates()">💾 ذخیره نرخ - اعمال برای همه</button>
-<div class="grid2" style="margin-top:8px">
+</div>
+
+<div class="box">
+<h4>🧮 حساب حواله - مشتری اینجا حساب میکنه</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
 <input id="calcAmt" class="input" type="number" placeholder="مبلغ 5000">
-<select id="calcCur" class="input"><option value="2.1">TRY لیر</option><option value="78.2">USD دلار</option><option value="84.5">EUR یورو</option></select>
+<select id="calcCur" class="input"><option value="2.1">🇹🇷 لیر</option><option value="78.2">🇺🇸 دلار</option><option value="84.5">🇪🇺 یورو</option></select>
 </div>
 <div style="background:#00A651;padding:10px;border-radius:10px;text-align:center;margin-top:6px"><b id="calcRes">0 AFN میرسد</b></div>
 <button class="btn" onclick="calc()">حساب کن</button>
+<button class="btn" style="background:#25D366" onclick="askHawala()">📱 درخواست حواله به واتساپ صراف</button>
 </div>
 
-<div id="hawala" class="box" style="display:none">
-<h4>🌍 حواله از ترکیه و خارج به افغانستان</h4>
-<div class="grid2">
-<select id="hFrom" class="input"><option>🇹🇷 ترکیه TL</option><option>🇺🇸 آمریکا USD</option><option>🇪🇺 اروپا EUR</option><option>🇦🇪 دوبی AED</option><option>🇮🇷 ایران</option></select>
-<select id="hTo" class="input"><option>🇦🇫 کابل</option><option>هرات</option><option>مزار</option><option>قندهار</option><option>جلال آباد</option><option>قندوز</option></select>
-</div>
-<input id="hSender" class="input" placeholder="نام فرستنده در ترکیه">
-<input id="hSTel" class="input" placeholder="شماره فرستنده 05XX">
-<input id="hReceiver" class="input" placeholder="نام گیرنده در افغانستان">
-<input id="hRTel" class="input" placeholder="شماره گیرنده 07XX">
-<input id="hAmount" class="input" type="number" placeholder="مبلغ ارسالی">
-<input id="hAf" class="input" placeholder="معادل افغانی خودکار" readonly>
-<button class="btn" onclick="addHawala()">✅ ثبت حواله + واتساپ</button>
+<div id="ownerPanel" class="hidden">
+<div class="box" style="border:2px solid #FFD700">
+<h4 style="color:#FFD700">🔐 پنل مالک - فقط تو میبینی - حجت الله شریفی</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0">
+<div style="background:#222;padding:8px;border-radius:8px;text-align:center"><small>مجموع</small><br><b id="stTotal">0</b></div>
+<div style="background:#222;padding:8px;border-radius:8px;text-align:center"><small>سود</small><br><b id="stProfit" style="color:#FFD700">0</b></div>
+<div style="background:#222;padding:8px;border-radius:8px;text-align:center"><small>طلب</small><br><b id="stTalab">0</b></div>
 </div>
 
-<div id="internet" class="box" style="display:none">
-<h4>🌐 انترنت، برق، کریدت، باقی پول</h4>
-<select id="iType" class="input"><option>افغان بیسیم انترنت</option><option>روشن انترنت</option><option>اتصالات</option><option>برق کابل</option><option>کریدت موبایل</option><option>دیگر خدمات</option></select>
-<input id="iID" class="input" placeholder="شماره / آیدی">
-<input id="iAmt" class="input" type="number" placeholder="مبلغ">
-<input id="iCust" class="input" placeholder="نام مشتری">
-<button class="btn" onclick="addService()">پرداخت و ثبت در مجموعه</button>
+<div class="tabs">
+<div class="tab active" onclick="showO('editRate',this)">💱 تغییر نرخ</div>
+<div class="tab" onclick="showO('hList',this)">🌍 حواله‌ها</div>
+<div class="tab" onclick="showO('debt',this)">📒 طلب</div>
+<div class="tab" onclick="showO('set',this)">⚙️ تنظیم</div>
 </div>
 
-<div id="debt" class="box" style="display:none">
-<h4>📒 دفتر طلب و بدهی - تمام حساب</h4>
-<div class="grid2">
-<button class="btn" onclick="setD('طلب')">➕ طلب دارم</button>
-<button class="btn btn2" onclick="setD('بدهی')">➖ بدهکارم</button>
-</div>
-<div id="dLabel" style="text-align:center;color:#00ff88;margin:6px 0">نوع: طلب</div>
-<input type="hidden" id="dType" value="طلب">
-<input id="dName" class="input" placeholder="نام شخص">
-<input id="dAmount" class="input" type="number" placeholder="مبلغ AFN">
-<input id="dNote" class="input" placeholder="بابت چی؟">
-<button class="btn" onclick="addDebt()">ثبت در دفتر کل</button>
-<div id="dList" style="margin-top:8px"></div>
+<div id="editRate">
+<table>
+<tr><th>ارز</th><th>خرید</th><th>فروش</th></tr>
+<tr><td>USD</td><td><input id="usd_b" class="edit" value="78.20"></td><td><input id="usd_s" class="edit" value="78.80"></td></tr>
+<tr><td>TRY</td><td><input id="try_b" class="edit" value="2.10"></td><td><input id="try_s" class="edit" value="2.30"></td></tr>
+<tr><td>EUR</td><td><input id="eur_b" class="edit" value="84.50"></td><td><input id="eur_s" class="edit" value="86.00"></td></tr>
+<tr><td>AED</td><td><input id="aed_b" class="edit" value="21.30"></td><td><input id="aed_s" class="edit" value="21.80"></td></tr>
+</table>
+<button class="btn" style="background:#FFD700;color:#000" onclick="saveRates()">💾 ذخیره نرخ جدید برای همه</button>
 </div>
 
-<div id="all" class="box" style="display:none">
-<h4>📋 مجموعه کامل پول - همه چیز</h4>
-<div style="display:flex;gap:4px;overflow-x:auto;margin:6px 0">
-<button class="tab" onclick="filterAll('all')">همه</button>
-<button class="tab" onclick="filterAll('حواله')">حواله</button>
-<button class="tab" onclick="filterAll('طلب')">طلب</button>
-<button class="tab" onclick="filterAll('خدمات')">خدمات</button>
-</div>
-<div id="allList">هنوز چیزی نیست</div>
-<div class="grid2" style="margin-top:8px">
-<button class="btn btn2" onclick="exportCSV()">📤 خروجی اکسل</button>
-<button class="btn btn2" onclick="window.print()">🖨 چاپ لست</button>
-</div>
-<button class="btn" style="background:#c62828" onclick="if(confirm('همه پاک شود؟')){localStorage.clear();location.reload()}">🗑 پاک کردن همه</button>
+<div id="hList" class="hidden">
+<h4>تمام حواله ها</h4>
+<div id="allHawala">هنوز نیست</div>
 </div>
 
-<div id="owner" class="box" style="display:none">
-<h4>🔐 پنل مالک - تحت کنترل تو</h4>
-<div style="background:#222;padding:10px;border-radius:10px;font-size:13px">
-✅ تمام چیز در این یک برنامه است<br>
-✅ نرخ دست تو - سود دست تو<br>
-✅ حواله ترکیه→افغانستان<br>
-✅ انترنت و خدمات<br>
-✅ طلب، بدهی، مجموعه پول<br>
-✅ فقط با رمز تو باز میشود
+<div id="debt" class="hidden">
+<input id="dName" class="input" placeholder="نام">
+<input id="dAmt" class="input" type="number" placeholder="مبلغ">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<button class="btn" onclick="addDebt('طلب')">طلب</button>
+<button class="btn btn2" onclick="addDebt('بدهی')">بدهی</button>
 </div>
+<div id="dList"></div>
+</div>
+
+<div id="set" class="hidden">
 <input id="oWA" class="input" placeholder="واتساپ شما 905...">
-<input id="oCard" class="input" placeholder="شماره کارت شما">
-<input id="oFee" class="input" placeholder="کارمزد % مثلا 2">
-<input id="newPass" class="input" type="password" placeholder="رمز جدید مالک">
-<button class="btn btnGold" onclick="saveOwner()">💾 ذخیره - تو صراف بزرگ هستی</button>
-<button class="btn btn2" onclick="location.reload()">🔒 قفل کن</button>
-<p style="margin-top:8px;font-size:12px">لینک مشتری: hujatullahsharifi21-bit.github.io/asanpay</p>
+<input id="oPass" class="input" type="password" placeholder="رمز جدید مالک (فقط خودت)">
+<button class="btn" onclick="saveOwner()">ذخیره تنظیمات امن</button>
+<button class="btn btn2" onclick="closeOwner()">🔒 بستن پنل مالک</button>
+</div>
+</div>
+</div>
+
+<div class="owner-btn" id="ownerBtn">
+<button class="btn2 btn" onclick="openOwner()" style="border-color:#FFD700;color:#FFD700">🔐 ورود مالک (صراف بزرگ) - فقط حجت</button>
+<small style="color:#666;display:block;margin-top:4px">مشتری ها این دکمه را نمیبینند - فقط تو</small>
 </div>
 
 <script>
-let PASS=localStorage.getItem('owner_pass')||'1234';
+let PASS=localStorage.getItem('owner_pass');
 let WA=localStorage.getItem('wa')||'905000000000';
-let FEE=parseFloat(localStorage.getItem('fee')||'2');
+let FEE=2;
 let hawala=JSON.parse(localStorage.getItem('all_hawala')||'[]');
 let debts=JSON.parse(localStorage.getItem('all_debt')||'[]');
-let services=JSON.parse(localStorage.getItem('all_service')||'[]');
-let TRY_RATE=2.1;
+let rates=JSON.parse(localStorage.getItem('rates_secure')||'{"usd_b":"78.20","usd_s":"78.80","try_b":"2.10","try_s":"2.30","eur_b":"84.50","eur_s":"86.00","aed_b":"21.30","aed_s":"21.80"}');
 
-document.getElementById('date').innerText=new Date().toLocaleDateString('fa-AF');
-document.getElementById('time').innerText=new Date().toLocaleTimeString('fa-AF');
-document.getElementById('hAmount').addEventListener('input',()=>{
- let v=parseFloat(document.getElementById('hAmount').value)||0;
- let rate=parseFloat(document.getElementById('try_b').value)||2.1;
- let af=v*rate; let fee=af*FEE/100;
- document.getElementById('hAf').value=Math.round(af-fee)+' AFN میرسد';
-});
-
-function unlock(){ if(document.getElementById('pass').value==PASS){document.getElementById('lock').style.display='none';render();} else alert('رمز اشتباه - 1234'); }
-function show(id,el){ document.querySelectorAll('.box').forEach(b=>b.style.display='none'); document.getElementById(id).style.display='block'; document.querySelectorAll('.tabs.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
-function setD(t){document.getElementById('dType').value=t;document.getElementById('dLabel').innerText='نوع: '+t}
-function calc(){ let amt=parseFloat(document.getElementById('calcAmt').value)||0; let rate=parseFloat(document.getElementById('calcCur').value); let total=amt*rate; document.getElementById('calcRes').innerText=Math.round(total-total*FEE/100)+' AFN میرسد'; }
-
-function addHawala(){
- let o={type:'حواله',from:document.getElementById('hFrom').value,to:document.getElementById('hTo').value,sender:document.getElementById('hSender').value,sTel:document.getElementById('hSTel').value,receiver:document.getElementById('hReceiver').value,rTel:document.getElementById('hRTel').value,amount:parseFloat(document.getElementById('hAmount').value)||0,af:document.getElementById('hAf').value,time:new Date().toLocaleString('fa-AF')};
- if(!o.sender||!o.amount){alert('نام و مبلغ');return}
- hawala.unshift(o); localStorage.setItem('all_hawala',JSON.stringify(hawala)); render();
- let txt=`حواله جدید:%0A${o.sender} (${o.sTel})%0A→ ${o.receiver} (${o.rTel})%0A${o.from} به ${o.to}%0Aمبلغ: ${o.amount}%0A${o.af}`;
- window.open('https://wa.me/'+WA+'?text='+txt,'_blank');
- document.getElementById('hSender').value='';document.getElementById('hAmount').value='';
+function init(){
+ document.getElementById('usd_b_show').innerText=rates.usd_b;
+ document.getElementById('usd_s_show').innerText=rates.usd_s;
+ document.getElementById('try_b_show').innerText=rates.try_b;
+ document.getElementById('try_s_show').innerText=rates.try_s;
+ document.getElementById('eur_b_show').innerText=rates.eur_b;
+ document.getElementById('eur_s_show').innerText=rates.eur_s;
+ document.getElementById('aed_b_show').innerText=rates.aed_b;
+ document.getElementById('aed_s_show').innerText=rates.aed_s;
+ document.getElementById('usd_b').value=rates.usd_b;document.getElementById('usd_s').value=rates.usd_s;
+ document.getElementById('try_b').value=rates.try_b;document.getElementById('try_s').value=rates.try_s;
+ document.getElementById('eur_b').value=rates.eur_b;document.getElementById('eur_s').value=rates.eur_s;
+ document.getElementById('aed_b').value=rates.aed_b;document.getElementById('aed_s').value=rates.aed_s;
+ document.getElementById('time').innerText=new Date().toLocaleDateString('fa-AF');
+ render();
+ if(!PASS){ // اولین بار - رمز بساز
+  let p=prompt('اولین بار است - رمز مالک خودت را بساز (4 رقم به بالا) - فقط خودت بدان:');
+  if(p&&p.length>=4){localStorage.setItem('owner_pass',p);PASS=p;alert('✅ رمز تو: '+p+' - هیچ کس دیگر نمیداند!');}else{alert('رمز 1234 موقت گذاشته شد - زود عوض کن');localStorage.setItem('owner_pass','1234');PASS='1234';}
+ }
 }
-function addService(){
- let o={type:'خدمات',service:document.getElementById('iType').value,id:document.getElementById('iID').value,amount:parseFloat(document.getElementById('iAmt').value)||0,cust:document.getElementById('iCust').value,time:new Date().toLocaleString('fa-AF')};
- if(!o.amount){alert('مبلغ');return}
- services.unshift(o); localStorage.setItem('all_service',JSON.stringify(services)); render(); alert('ثبت شد');
+
+function openOwner(){
+ let p=prompt('رمز مالک را بزن - فقط حجت میداند:');
+ if(p==PASS){
+  document.getElementById('ownerPanel').classList.remove('hidden');
+  document.getElementById('ownerBtn').classList.add('hidden');
+  render();
+ } else alert('رمز اشتباه! فقط مالک میتواند');
 }
-function addDebt(){
- let o={type:document.getElementById('dType').value,name:document.getElementById('dName').value,amount:parseFloat(document.getElementById('dAmount').value)||0,note:document.getElementById('dNote').value,time:new Date().toLocaleString('fa-AF')};
+function closeOwner(){document.getElementById('ownerPanel').classList.add('hidden');document.getElementById('ownerBtn').classList.remove('hidden');}
+function showO(id,el){
+ document.getElementById('editRate').classList.add('hidden');
+ document.getElementById('hList').classList.add('hidden');
+ document.getElementById('debt').classList.add('hidden');
+ document.getElementById('set').classList.add('hidden');
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('#ownerPanel .tab').forEach(t=>t.classList.remove('active'));
+ el.classList.add('active');
+}
+function calc(){let amt=parseFloat(document.getElementById('calcAmt').value)||0;let rate=parseFloat(document.getElementById('calcCur').value);let tot=amt*rate;document.getElementById('calcRes').innerText=Math.round(tot-tot*FEE/100)+' AFN میرسد (بعد کارمزد)';}
+function askHawala(){let amt=document.getElementById('calcAmt').value||'';let res=document.getElementById('calcRes').innerText;let txt=`سلام صراف صاحب%0Aدرخواست حواله:%0Aمبلغ: ${amt}%0A${res}%0Aلطفا راهنمایی کنید`;window.open('https://wa.me/'+WA+'?text='+txt,'_blank');}
+function saveRates(){
+ let r={usd_b:document.getElementById('usd_b').value,usd_s:document.getElementById('usd_s').value,try_b:document.getElementById('try_b').value,try_s:document.getElementById('try_s').value,eur_b:document.getElementById('eur_b').value,eur_s:document.getElementById('eur_s').value,aed_b:document.getElementById('aed_b').value,aed_s:document.getElementById('aed_s').value};
+ localStorage.setItem('rates_secure',JSON.stringify(r));rates=r;init();alert('✅ نرخ جدید برای همه مشتری ها ذخیره شد - امن!');
+}
+function addDebt(type){
+ let o={type:type,name:document.getElementById('dName').value,amount:parseFloat(document.getElementById('dAmt').value)||0,time:new Date().toLocaleString('fa-AF')};
  if(!o.name||!o.amount){alert('نام و مبلغ');return}
- debts.unshift(o); localStorage.setItem('all_debt',JSON.stringify(debts)); render(); alert('در دفتر ثبت شد');
+ debts.unshift(o);localStorage.setItem('all_debt',JSON.stringify(debts));render();
 }
-function saveRates(){ let r={usd_b:document.getElementById('usd_b').value,try_b:document.getElementById('try_b').value}; localStorage.setItem('rates',JSON.stringify(r)); alert('✅ نرخ ها ذخیره شد - تو صراف بزرگ شدی!'); }
 function saveOwner(){
- let wa=document.getElementById('oWA').value; let fee=document.getElementById('oFee').value; let np=document.getElementById('newPass').value;
- if(wa) {localStorage.setItem('wa',wa);WA=wa;} if(fee) localStorage.setItem('fee',fee);
- if(np.length>=4){localStorage.setItem('owner_pass',np);PASS=np;}
- alert('✅ ذخیره شد - همه چیز تحت کنترل تو!');
+ let wa=document.getElementById('oWA').value;let np=document.getElementById('oPass').value;
+ if(wa)localStorage.setItem('wa',wa);
+ if(np&&np.length>=4){localStorage.setItem('owner_pass',np);PASS=np;alert('✅ رمز جدید: '+np+' - فقط تو میدانی!');}else alert('تنظیمات ذخیره شد');
+ WA=localStorage.getItem('wa')||WA;
 }
-
 function render(){
- let totalH=hawala.reduce((s,x)=>s+x.amount*(parseFloat(document.getElementById('try_b').value)||2.1),0);
- let profit=totalH*FEE/100 + services.reduce((s,x)=>s+x.amount*0.02,0);
- let talab=debts.filter(d=>d.type=='طلب').reduce((s,x)=>s+x.amount,0);
- let bedehi=debts.filter(d=>d.type=='بدهی').reduce((s,x)=>s+x.amount,0);
- document.getElementById('stTotal').innerText=Math.round(totalH)+' AFN';
- document.getElementById('stProfit').innerText=Math.round(profit)+' AFN';
- document.getElementById('stTalab').innerText=(talab-bedehi)+' AFN';
- document.getElementById('stCount').innerText=hawala.length+debts.length+services.length;
- document.getElementById('stToday').innerText=hawala.length;
- let all=[...hawala,...debts,...services].sort((a,b)=>0);
- document.getElementById('allList').innerHTML=[...hawala.map(h=>`<div class=item><div><b>${h.sender}→${h.receiver}</b><br><small>${h.from} ${h.amount} - ${h.time}</small></div><span style="color:#00ff88">${h.af}</span></div>`),...debts.map(d=>`<div class=item><div><b>${d.name}</b> ${d.type}<br><small>${d.note} ${d.time}</small></div><b style="color:${d.type=='طلب'?'#00ff88':'#ff4444'}">${d.amount}</b></div>`),...services.map(s=>`<div class=item><div><b>${s.service}</b> ${s.cust}<br><small>${s.id} ${s.time}</small></div><b>${s.amount}</b></div>`)].join('')||'هنوز چیزی نیست';
- document.getElementById('dList').innerHTML=debts.map(d=>`<div class=item><span>${d.name} - ${d.type}</span><b>${d.amount} AFN</b></div>`).join('');
+ let total=hawala.reduce((s,x)=>s+x.amount*2.1,0);
+ document.getElementById('stTotal').innerText=Math.round(total)+' AFN';
+ document.getElementById('stProfit').innerText=Math.round(total*0.02)+' AFN';
+ let talab=debts.filter(d=>d.type=='طلب').reduce((s,x)=>s+x.amount,0)-debts.filter(d=>d.type=='بدهی').reduce((s,x)=>s+x.amount,0);
+ document.getElementById('stTalab').innerText=talab+' AFN';
+ document.getElementById('allHawala').innerHTML=hawala.map(h=>`<div style="padding:6px 0;border-bottom:1px solid #222">${h.sender||'مشتری'} ${h.amount} - ${h.time}</div>`).join('')||'هنوز نیست';
+ document.getElementById('dList').innerHTML=debts.map(d=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222"><span>${d.name} ${d.type}</span><b>${d.amount}</b></div>`).join('');
 }
-
-function filterAll(t){
- if(t=='all'){render();return}
- let f=[...hawala,...debts,...services].filter(x=>x.type==t||x.type.includes(t));
- document.getElementById('allList').innerHTML=f.map(x=>`<div class=item>${x.sender||x.name||x.service} - ${x.amount}</div>`).join('')||'چیزی نیست';
-}
-function exportCSV(){
- let all=[...hawala,...debts,...services];
- let csv='نوع,نام,مبلغ,زمان\n'+all.map(x=>`${x.type},${x.sender||x.name||x.service},${x.amount},${x.time}`).join('\n');
- let blob=new Blob([csv],{type:'text/csv'}); let url=URL.createObjectURL(blob);
- let a=document.createElement('a');a.href=url;a.download='AsanPay_Kol.csv';a.click();
-}
+init();
 </script>
 </body>
 </html>
